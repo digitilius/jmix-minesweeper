@@ -1,0 +1,72 @@
+plugins {
+    id 'java-library'
+    id 'signing'
+    id 'io.jmix' version '2.8.0'
+    id 'com.vanniktech.maven.publish' version '0.34.0'
+}
+
+group = 'io.github.digitilius'
+version = findProperty('version') ?: '1.0.2'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://global.repo.jmix.io/repository/public'
+    }
+}
+
+jmix {
+    bomVersion = findProperty('jmixBomVersion') ?: '2.8.0'
+    projectId = 'minesweeper'
+}
+
+java {
+    withSourcesJar()
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.encoding = 'UTF-8'
+    failOnError = false
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs.add('-parameters')
+}
+
+tasks.withType(GenerateModuleMetadata).configureEach {
+    enabled = false
+}
+
+mavenPublishing {
+    publishToMavenCentral(true)
+    signAllPublications()
+
+    coordinates("io.github.digitilius", "jmix-minesweeper", version.toString())
+
+    pom {
+        name.set("jmix-minesweeper")
+        description.set("Minesweeper Flow UI add-on for Jmix")
+        url.set("https://github.com/digitilius/jmix-minesweeper")
+
+        licenses {
+            license {
+                name.set("Apache-2.0")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("digitilius")
+                name.set("Stas Makarov")
+                email.set("s.makarov15@gmail.com")
+            }
+        }
+
+        scm {
+            url.set("https://github.com/digitilius/jmix-minesweeper")
+            connection.set("scm:git:git://github.com/digitilius/jmix-minesweeper.git")
+            developerConnection.set("scm:git:ssh://git@github.com/digitilius/jmix-minesweeper.git")
+        }
+    }
+}

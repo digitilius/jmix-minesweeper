@@ -1,0 +1,7 @@
+rootProject.name = 'demo'
+
+includeBuild('../minesweeper-addon') {
+    dependencySubstitution {
+        substitute module('io.github.digitilius.minesweeper:minesweeper-starter') using project(':minesweeper-starter')
+    }
+}

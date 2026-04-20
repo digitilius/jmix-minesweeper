@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="minesweeper" title="msg://io.github.digitilius.minesweeper/menu.addon" opened="true">
+        <item view="minesweeper_Minesweeper.view" title="msg://io.github.digitilius.minesweeper/menu.minesweeper"/>
+    </menu>
+
+</menu-config>
