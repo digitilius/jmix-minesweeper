@@ -6,12 +6,15 @@ plugins {
 }
 
 group = 'io.github.digitilius'
-version = findProperty('version') ?: '1.0.2'
+def addonVersion = (findProperty('version') ?: '1.0.2').toString()
+version = addonVersion
 
-repositories {
-    mavenCentral()
-    maven {
-        url = 'https://global.repo.jmix.io/repository/public'
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url = 'https://global.repo.jmix.io/repository/public'
+        }
     }
 }
 
@@ -38,10 +41,7 @@ tasks.withType(GenerateModuleMetadata).configureEach {
 }
 
 mavenPublishing {
-    publishToMavenCentral(true)
-    signAllPublications()
-
-    coordinates("io.github.digitilius",  "jmix-minesweeper", project.version.toString())
+    coordinates("io.github.digitilius", "jmix-minesweeper", addonVersion)
 
     pom {
         name.set("jmix-minesweeper")
@@ -69,4 +69,7 @@ mavenPublishing {
             developerConnection.set("scm:git:ssh://git@github.com/digitilius/jmix-minesweeper.git")
         }
     }
+
+    publishToMavenCentral(true)
+    signAllPublications()
 }

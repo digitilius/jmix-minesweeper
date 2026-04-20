@@ -28,7 +28,13 @@ jobs:
 
       - name: Publish to Maven Central
         run: |
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            PUBLISH_VERSION="${GITHUB_REF_NAME#v}"
+          else
+            PUBLISH_VERSION="1.0.2"
+          fi
           ./gradlew :minesweeper-addon:publishAndReleaseToMavenCentral --no-daemon \
+            -Pversion="$PUBLISH_VERSION" \
             -PmavenCentralUsername=${{ secrets.MAVEN_CENTRAL_USERNAME }} \
             -PmavenCentralPassword=${{ secrets.MAVEN_CENTRAL_PASSWORD }} \
             -PsigningInMemoryKey="${{ secrets.GPG_KEY_CONTENTS }}" \
