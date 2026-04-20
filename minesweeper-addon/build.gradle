@@ -41,7 +41,7 @@ mavenPublishing {
     publishToMavenCentral(true)
     signAllPublications()
 
-    coordinates("io.github.digitilius", "jmix-minesweeper", version.toString())
+    coordinates("io.github.digitilius",  "jmix-minesweeper", project.version.toString())
 
     pom {
         name.set("jmix-minesweeper")
