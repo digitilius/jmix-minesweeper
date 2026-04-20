@@ -1,0 +1,63 @@
+plugins {
+    id 'java-library'
+    id 'io.jmix'
+    id 'signing'
+    id 'com.vanniktech.maven.publish'
+}
+
+java {
+    withSourcesJar()
+}
+
+jmix {
+    bomVersion = findProperty('jmixBomVersion') ?: '2.8.0'
+    projectId = 'minesweeper'
+    entitiesEnhancing {
+        enabled = false
+    }
+}
+
+dependencies {
+    api project(':minesweeper')
+
+    implementation 'io.jmix.core:jmix-core'
+    implementation 'io.jmix.data:jmix-data'
+
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+}
+
+def artifactVersion = rootProject.version.toString()
+
+mavenPublishing {
+    publishToMavenCentral(true)
+    signAllPublications()
+
+    coordinates('io.github.digitilius.minesweeper', 'minesweeper-starter', artifactVersion)
+
+    pom {
+        name.set('minesweeper-starter')
+        description.set('Minesweeper Flow UI add-on for Jmix (Spring Boot starter)')
+        url.set('https://github.com/digitilius/jmix-minesweeper')
+
+        licenses {
+            license {
+                name.set('Apache-2.0')
+                url.set('https://www.apache.org/licenses/LICENSE-2.0.txt')
+            }
+        }
+
+        developers {
+            developer {
+                id.set('digitilius')
+                name.set('Stas Makarov')
+                email.set('s.makarov15@gmail.com')
+            }
+        }
+
+        scm {
+            url.set('https://github.com/digitilius/jmix-minesweeper')
+            connection.set('scm:git:git://github.com/digitilius/jmix-minesweeper.git')
+            developerConnection.set('scm:git:ssh://git@github.com/digitilius/jmix-minesweeper.git')
+        }
+    }
+}

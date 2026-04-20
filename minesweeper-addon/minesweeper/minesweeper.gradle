@@ -1,0 +1,76 @@
+plugins {
+    id 'java-library'
+    id 'io.jmix'
+    id 'signing'
+    id 'com.vanniktech.maven.publish'
+}
+
+java {
+    withSourcesJar()
+}
+
+jmix {
+    bomVersion = findProperty('jmixBomVersion') ?: '2.8.0'
+    projectId = 'minesweeper'
+}
+
+dependencies {
+    implementation 'io.jmix.core:jmix-core-starter'
+    implementation 'io.jmix.data:jmix-eclipselink-starter'
+    implementation 'io.jmix.flowui:jmix-flowui-starter'
+    implementation 'io.jmix.flowui:jmix-flowui-themes'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testRuntimeOnly 'org.hsqldb:hsqldb'
+}
+
+configurations.implementation {
+    exclude group: 'com.vaadin', module: 'hilla'
+    exclude group: 'com.vaadin', module: 'hilla-dev'
+    exclude group: 'com.vaadin', module: 'copilot'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+def artifactVersion = rootProject.version.toString()
+
+mavenPublishing {
+    publishToMavenCentral(true)
+    signAllPublications()
+
+    coordinates('io.github.digitilius.minesweeper', 'minesweeper', artifactVersion)
+
+    pom {
+        name.set('minesweeper')
+        description.set('Minesweeper Flow UI add-on for Jmix (core module)')
+        url.set('https://github.com/digitilius/jmix-minesweeper')
+
+        licenses {
+            license {
+                name.set('Apache-2.0')
+                url.set('https://www.apache.org/licenses/LICENSE-2.0.txt')
+            }
+        }
+
+        developers {
+            developer {
+                id.set('digitilius')
+                name.set('Stas Makarov')
+                email.set('s.makarov15@gmail.com')
+            }
+        }
+
+        scm {
+            url.set('https://github.com/digitilius/jmix-minesweeper')
+            connection.set('scm:git:git://github.com/digitilius/jmix-minesweeper.git')
+            developerConnection.set('scm:git:ssh://git@github.com/digitilius/jmix-minesweeper.git')
+        }
+    }
+}

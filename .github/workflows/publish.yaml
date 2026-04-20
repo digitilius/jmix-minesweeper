@@ -1,0 +1,42 @@
+name: Publish to Maven Central
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Import GPG key
+        run: |
+          echo "${{ secrets.GPG_KEY_CONTENTS }}" | gpg --import --batch --no-tty
+          echo "${{ secrets.GPG_KEY_CONTENTS }}" | gpg --import --batch --no-tty --trust-model always
+
+      - name: Publish to Maven Central
+        run: |
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            PUBLISH_VERSION="${GITHUB_REF_NAME#v}"
+          else
+            PUBLISH_VERSION="1.0.2"
+          fi
+          ./gradlew :minesweeper-addon:minesweeper:publishAndReleaseToMavenCentral \
+            :minesweeper-addon:minesweeper-starter:publishAndReleaseToMavenCentral --no-daemon \
+            -Pversion="$PUBLISH_VERSION" \
+            -PmavenCentralUsername=${{ secrets.MAVEN_CENTRAL_USERNAME }} \
+            -PmavenCentralPassword=${{ secrets.MAVEN_CENTRAL_PASSWORD }} \
+            -PsigningInMemoryKey="${{ secrets.GPG_KEY_CONTENTS }}" \
+            -PsigningInMemoryKeyPassword="${{ secrets.SIGNING_PASSWORD }}"

@@ -1,0 +1,43 @@
+group = 'io.github.digitilius'
+def addonVersion = (findProperty('version') ?: '1.0.3').toString()
+version = addonVersion
+
+subprojects {
+    group = 'io.github.digitilius.minesweeper'
+    version = rootProject.version
+
+    tasks.withType(Javadoc).configureEach {
+        options.encoding = 'UTF-8'
+        failOnError = false
+    }
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs.add('-parameters')
+    }
+    tasks.withType(GenerateModuleMetadata).configureEach {
+        enabled = false
+    }
+
+    plugins.withId('maven-publish') {
+        publishing {
+            publications.withType(MavenPublication).configureEach { publication ->
+                publication.versionMapping {
+                    usage('java-api') {
+                        fromResolutionResult()
+                    }
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }
+            }
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url = 'https://global.repo.jmix.io/repository/public'
+        }
+    }
+}

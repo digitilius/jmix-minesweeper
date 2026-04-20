@@ -1,0 +1,22 @@
+.jmix
+
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea/*
+!.idea/encodings.xml
+*.iws
+*.iml
+*.ipr
+out/
+/target/
+
+### VS Code ###
+.vscode/
+
+.DS_Store
+minesweeper-addon/gradle.properties
+/.etc/maven-token.xml
+/.etc/private-key.asc
