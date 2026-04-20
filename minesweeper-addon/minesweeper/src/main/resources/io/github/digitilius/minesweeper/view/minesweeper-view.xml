@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://MinesweeperView.title">
+    <layout spacing="false" padding="false" classNames="minesweeper-view-root">
+        <hbox id="rootHbox" width="100%" height="100%" spacing="true" padding="true" classNames="minesweeper-root-hbox">
+            <vbox id="sidePanel" width="22em" spacing="true" padding="false" classNames="minesweeper-side">
+                <div id="fieldSizePresetHost" width="100%" classNames="minesweeper-field-size-host"/>
+                <formLayout width="100%">
+                    <integerField id="widthField" label="msg://MinesweeperView.width"/>
+                    <integerField id="heightField" label="msg://MinesweeperView.height"/>
+                    <integerField id="probabilityField" label="msg://MinesweeperView.probability"/>
+                </formLayout>
+                <button id="showRulesButton" width="100%" text="msg://MinesweeperView.showRules"/>
+                <nativeLabel id="helpLabel" visible="false" classNames="minesweeper-help"/>
+            </vbox>
+            <vbox id="gameScroll" width="100%" height="100%" spacing="false" padding="false"
+                  classNames="minesweeper-game-scroll">
+                <hbox id="gameCenterWrap" width="100%" height="100%" justifyContent="CENTER" alignItems="START"
+                      padding="false" spacing="false">
+                    <div id="gameGridHost" classNames="minesweeper-game-host"/>
+                </hbox>
+            </vbox>
+        </hbox>
+    </layout>
+</view>

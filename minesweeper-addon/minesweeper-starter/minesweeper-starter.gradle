@@ -1,0 +1,21 @@
+plugins {
+    id 'java-library'
+    id 'io.jmix'
+}
+
+jmix {
+    bomVersion = findProperty('jmixBomVersion') ?: '2.8.0'
+    projectId = 'minesweeper'
+    entitiesEnhancing {
+        enabled = false
+    }
+}
+
+dependencies {
+    api project(':minesweeper')
+
+    implementation 'io.jmix.core:jmix-core'
+    implementation 'io.jmix.data:jmix-data'
+
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+}

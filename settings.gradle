@@ -1,0 +1,4 @@
+rootProject.name = 'jmix-minesweeper'
+
+includeBuild 'demo'
+includeBuild 'minesweeper-addon'

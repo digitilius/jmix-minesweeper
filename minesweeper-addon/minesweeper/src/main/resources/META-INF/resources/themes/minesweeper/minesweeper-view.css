@@ -1,0 +1,121 @@
+.minesweeper-view-root .minesweeper-root-hbox {
+    align-items: stretch;
+    min-height: 22rem;
+    flex: 1 1 auto;
+}
+
+.minesweeper-view-root .minesweeper-game-scroll {
+    overflow: auto;
+    min-height: 18rem;
+    flex: 1 1 auto;
+}
+
+.minesweeper-view-root .minesweeper-game-host {
+    --minesweeper-cell: 2rem;
+    --minesweeper-led-text: #FC1C00;
+    --minesweeper-game-panel: #EBEBEB;
+    --minesweeper-field: #EBEDF0;
+    --minesweeper-opened: #C0C0C0;
+    --minesweeper-top-panel: #D6D6D6;
+    --minesweeper-flag: #B01000;
+    --minesweeper-fatal: #ff0000;
+    display: inline-block;
+    width: max-content;
+    max-width: 100%;
+    background-color: var(--minesweeper-game-panel, #EBEBEB);
+}
+
+.minesweeper-view-root .minesweeper-led-segment {
+    color: var(--minesweeper-led-text, #FC1C00) !important;
+}
+
+.minesweeper-view-root .minesweeper-game-board {
+    justify-content: start;
+    align-content: start;
+}
+
+.minesweeper-view-root .minesweeper-cell-wrap {
+    width: var(--minesweeper-cell, 2rem);
+    height: var(--minesweeper-cell, 2rem);
+    box-sizing: border-box;
+}
+
+.minesweeper-view-root .minesweeper-cell-btn {
+    width: var(--minesweeper-cell, 2rem);
+    height: var(--minesweeper-cell, 2rem);
+    min-width: var(--minesweeper-cell, 2rem);
+    min-height: var(--minesweeper-cell, 2rem);
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: 1px solid var(--lumo-contrast-30pct);
+    border-radius: var(--lumo-border-radius-s);
+    background-color: var(--minesweeper-field, #EBEDF0);
+    color: var(--lumo-body-text-color);
+}
+
+.minesweeper-view-root .minesweeper-cell-btn[disabled] {
+    opacity: 1;
+    background-color: #e4e6ea;
+    color: var(--lumo-body-text-color);
+}
+
+.minesweeper-view-root .minesweeper-cell-span {
+    width: var(--minesweeper-cell, 2rem);
+    height: var(--minesweeper-cell, 2rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    box-sizing: border-box;
+    border: 1px solid var(--lumo-contrast-10pct);
+    border-radius: var(--lumo-border-radius-s);
+    background-color: var(--minesweeper-opened, #C0C0C0);
+}
+
+/* Opened-cell counts: override Lumo body text on .minesweeper-cell-span */
+.minesweeper-view-root .minesweeper-cell-span.minesweeper-digit-1 {
+    color: #0000ff !important;
+}
+
+.minesweeper-view-root .minesweeper-cell-span.minesweeper-digit-2 {
+    color: #008000 !important;
+}
+
+.minesweeper-view-root .minesweeper-cell-span.minesweeper-digit-3 {
+    color: #ff0000 !important;
+}
+
+.minesweeper-view-root .minesweeper-cell-span.minesweeper-digit-4 {
+    color: #654321 !important;
+}
+
+.minesweeper-view-root .minesweeper-cell-span.minesweeper-digit-5 {
+    color: #000000 !important;
+}
+
+.minesweeper-view-root .minesweeper-cell-span.minesweeper-digit-6 {
+    color: #008080 !important;
+}
+
+.minesweeper-view-root .minesweeper-cell-span.minesweeper-digit-7 {
+    color: #000000 !important;
+}
+
+.minesweeper-view-root .minesweeper-cell-span.minesweeper-digit-8 {
+    color: #808080 !important;
+}
+
+.minesweeper-view-root .minesweeper-help {
+    white-space: pre-wrap;
+    font-size: var(--lumo-font-size-s);
+    line-height: var(--lumo-line-height-m);
+}
+
+.minesweeper-view-root .minesweeper-flag {
+    color: var(--minesweeper-flag, #B01000);
+}
+
+.minesweeper-view-root .minesweeper-mine-icon {
+    color: #000000;
+}

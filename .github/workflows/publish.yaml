@@ -1,0 +1,35 @@
+name: Publish to Maven Central
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Import GPG key
+        run: |
+          echo "${{ secrets.GPG_KEY_CONTENTS }}" | gpg --import --batch --no-tty
+          echo "${{ secrets.GPG_KEY_CONTENTS }}" | gpg --import --batch --no-tty --trust-model always
+
+      - name: Publish to Maven Central
+        run: |
+          ./gradlew :minesweeper-addon:publishAndReleaseToMavenCentral --no-daemon \
+            -PmavenCentralUsername=${{ secrets.MAVEN_CENTRAL_USERNAME }} \
+            -PmavenCentralPassword=${{ secrets.MAVEN_CENTRAL_PASSWORD }} \
+            -PsigningInMemoryKey="${{ secrets.GPG_KEY_CONTENTS }}" \
+            -PsigningInMemoryKeyPassword="${{ secrets.SIGNING_PASSWORD }}"
