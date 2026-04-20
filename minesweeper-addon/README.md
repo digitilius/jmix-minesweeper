@@ -18,15 +18,29 @@ Classic **Minesweeper** for [Jmix](https://www.jmix.io/): covered field, mine co
 
 Built for **Jmix 2.8.x** (see `jmixBomVersion` in [`gradle.properties`](gradle.properties) and the `jmix { bomVersion }` block in [`build.gradle`](build.gradle)). Use the **starter** so Boot loads auto-configuration.
 
-| Jmix | Dependency                                                                                                               |
-|------|--------------------------------------------------------------------------------------------------------------------------|
-| 2.8.x | `io.github.digitilius:jmix-minesweeper:<version>` (see `version` in [`gradle.properties`](gradle.properties)) |
+| Jmix | Dependency                                                                                                                                                           |
+|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2.8.x | `io.github.digitilius.minesweeper:minesweeper-starter:1.0.4` ([Maven Central](https://repo1.maven.org/maven2/io/github/digitilius/minesweeper/minesweeper-starter/)) |
 
 ```gradle
 dependencies {
-    implementation 'io.github.digitilius:jmix-minesweeper:<version>'
+    implementation 'io.github.digitilius.minesweeper:minesweeper-starter:1.0.4'
 }
 ```
+
+Do **not** use `io.github.digitilius:jmix-minesweeper` — that coordinate is not published; the runtime is split into **`minesweeper`** (library) and **`minesweeper-starter`** (Spring Boot entry point). Applications should depend only on **`minesweeper-starter`**.
+
+### Minesweeper entry missing from the sidebar
+
+If you only see your app’s own menu (Users, Security, …) and **no Minesweeper** block, your host **`application.properties`** must merge add-on menus with yours. Add (or set to `true`):
+
+```properties
+jmix.ui.composite-menu=true
+```
+
+Keep your existing `jmix.ui.menu-config=…` pointing at **your** `menu.xml`. This matches the demo in this repository (`demo/src/main/resources/application.properties`). See the Jmix docs on [menu configuration](https://docs.jmix.io/jmix/2.8/flow-ui/menu-config.html).
+
+To confirm the add-on is loaded even without the menu item, open **`/minesweeper`** in the browser; if the game appears, fix menu merging or Flow UI **resource roles** for view id **`minesweeper_Minesweeper.view`**.
 
 Use a fixed `<version>` for releases. The add-on registers **`MinesweeperView`** as **`minesweeper_Minesweeper.view`** with route **`minesweeper`**, the **Minesweeper** menu (`io/github/digitilius/minesweeper/menu.xml`), and **Play Minesweeper**.
 

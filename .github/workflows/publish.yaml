@@ -31,7 +31,7 @@ jobs:
           if [ "${{ github.ref_type }}" = "tag" ]; then
             PUBLISH_VERSION="${GITHUB_REF_NAME#v}"
           else
-            PUBLISH_VERSION="1.0.2"
+            PUBLISH_VERSION="1.0.4"
           fi
           ./gradlew :minesweeper-addon:minesweeper:publishAndReleaseToMavenCentral \
             :minesweeper-addon:minesweeper-starter:publishAndReleaseToMavenCentral --no-daemon \

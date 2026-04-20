@@ -1,5 +1,5 @@
 group = 'io.github.digitilius'
-def addonVersion = (findProperty('version') ?: '1.0.3').toString()
+def addonVersion = (findProperty('version') ?: '1.0.4').toString()
 version = addonVersion
 
 subprojects {
